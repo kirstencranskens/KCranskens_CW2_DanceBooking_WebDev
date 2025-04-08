@@ -66,8 +66,7 @@ getBookingsForCourse(courseId) {
         }
       });
     });
-  }
-  
+  }  
   
 
   // Seed the database with sample bookings
