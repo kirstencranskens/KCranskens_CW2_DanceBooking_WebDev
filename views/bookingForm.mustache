@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>{{title}}</title>
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> 
+   <link rel="stylesheet" href="/style.css">
+</head>
+<body class="container">
+    {{> header}}
+    <h1>{{title}}</h1>
+    <p>Booking for Course: {{courseName}}</p>
+
+    <form id="bookingForm" method="post" action="/book/{{courseId}}">
+        <div class="form-group">
+            <label for="userName">Your Name</label>
+            <input type="text" class="form-control" id="userName" name="userName" placeholder="Enter your name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Book Course" class="btn btn-primary">
+        </div>
+    </form>
+
+    <!-- Error message container (hidden by default) -->
+    <div id="bookingError" class="alert alert-danger d-none"></div>
+
+    {{> footer}}
+
+    <script>
+      document.getElementById('bookingForm').addEventListener('submit', function(event) {
+        const messages = [];
+        const name = document.getElementById('userName').value;
+        const email = document.getElementById('email').value;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        
+        if (!name.trim()) {
+          messages.push("Name cannot be empty.");
+        }
+        if (!emailRegex.test(email)) {
+          messages.push("Please enter a valid email address.");
+        }
+        
+        if (messages.length > 0) {
+          event.preventDefault(); // Prevent form submission
+          const errorDiv = document.getElementById('bookingError');
+          errorDiv.innerHTML = messages.join("<br>");
+          errorDiv.classList.remove("d-none");
+        }
+      });
+    </script>
+</body>
+</html>

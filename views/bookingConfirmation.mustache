@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Booking Confirmation</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> header}}
+  <div class="container mt-4">
+    <h1>Booking Confirmation</h1>
+    <p>Thank you for your booking!</p>
+    <ul>
+      <li><strong>Course:</strong> {{booking.courseName}}</li>
+      <li><strong>Your Name:</strong> {{booking.userName}}</li>
+      <li><strong>Your Email:</strong> {{booking.email}}</li>
+      <li><strong>Booked On:</strong> {{booking.bookedOn}}</li>
+      {{#booking.date}}
+      <li><strong>Date:</strong> {{booking.date}}</li>
+      {{/booking.date}}
+      {{#booking.time}}
+      <li><strong>Time:</strong> {{booking.time}}</li>
+      {{/booking.time}}
+      {{#booking.location}}
+      <li><strong>Location:</strong> {{booking.location}}</li>
+      {{/booking.location}}
+    </ul>
+    <a href="/courses" class="btn btn-primary">Back to Courses</a>
+  </div>
+  {{> footer}}
+</body>
+</html>

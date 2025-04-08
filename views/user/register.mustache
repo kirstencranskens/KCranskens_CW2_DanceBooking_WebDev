@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> header}}
+  <div class="container mt-4">
+  {{#error}}
+  <div class="alert alert-danger">{{.}}</div>
+  {{/error}}
+    <div class="register-card">
+      <h1 class="text-center mb-4">{{title}}</h1>
+      <form id="registerForm" method="post" action="/register">
+        <div class="form-group">
+          <label for="username">User Name</label>
+          <input type="text" class="form-control" id="username" name="username" placeholder="Enter user name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+          <label for="pass">Password (8 characters minimum)</label>
+          <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter password" minlength="8" required>
+        </div>
+        <div class="form-group">
+          <label for="confirm">Confirm Password</label>
+          <input type="password" class="form-control" id="confirm" name="confirm" placeholder="Re-enter password" minlength="8" required>
+        </div>
+        <!-- Hidden field to carry the redirect URL -->
+        <input type="hidden" name="redirect" value="{{redirect}}">
+        <div class="form-group">
+          <input type="submit" value="Register" class="btn btn-primary btn-block">
+        </div>
+      </form>
+      <div id="errorMsg" class="alert alert-danger d-none"></div>
+    </div>
+  </div>
+  {{> footer}}
+
+  <!-- Client-Side Validation Script -->
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('pass').value;
+      const confirm = document.getElementById('confirm').value;
+      const errorMsg = document.getElementById('errorMsg');
+      let messages = [];
+
+      // Basic email format validation using regex
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        messages.push("Please enter a valid email address.");
+      }
+      // Check that password and confirm fields match
+      if (password !== confirm) {
+        messages.push("Passwords do not match.");
+      }
+      // You can add more validations as needed
+
+      if (messages.length > 0) {
+        event.preventDefault(); // Prevent form submission
+        errorMsg.innerHTML = messages.join("<br>");
+        errorMsg.classList.remove("d-none");
+      }
+    });
+  </script>
+</body>
+</html>

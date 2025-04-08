@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About Us</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* Optional inline styles for the about page image */
+    .about-img {
+      max-height: 400px;
+      object-fit: cover;
+      margin-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  {{> header}}
+  <div class="container mt-4">
+    <div class="text-center">
+      <img src="/aboutUs.svg" alt="About Prism Dance Studio" class="img-fluid about-img">
+    </div>
+    <h1>About Us</h1>
+    <p>
+      Welcome to Prism Dance Studio, a vibrant haven for dance in the heart of Glasgow city centre. Born from a passion for movement and creativity, our studio is more than just a place to dance—it's a community where every step tells a story and every twirl reveals a new perspective.
+    </p>
+    <p>
+      At Prism, we celebrate the art of dance in all its forms. From contemporary to ballet, hip-hop to modern jazz, our diverse classes are designed to nurture talent, ignite passion, and build confidence. Our state-of-the-art studio, nestled in the bustling streets of Glasgow, offers an inspiring backdrop that reflects the city's rich culture and dynamic spirit.
+    </p>
+    <p>
+      Our team of experienced instructors is dedicated to creating an environment where everyone—whether a seasoned performer or a curious beginner—can thrive. We believe that dance is a universal language that unites us, empowering individuals to express themselves with freedom and grace.
+    </p>
+    <p>
+      Step into Prism Dance Studio and join a community where creativity meets discipline, and where every dance move is a vibrant celebration of life. Let’s dance, dream, and create magic together!
+    </p>
+  </div>
+  {{> footer}}
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <title>{{title}}</title>
+   <!-- Bootstrap CSS -->
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+   <link rel="stylesheet" href="/style.css">
+   <style>
+     /* Optional inline styles for centering the card */
+     .organiser-card {
+       max-width: 500px;
+       margin: 50px auto;
+       padding: 20px;
+       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+       border-radius: 8px;
+       background-color: var(--cream);
+     }
+   </style>
+</head>
+<body>
+  {{> header}}
+  <div class="container">
+    <div class="organiser-card">
+      <h1 class="text-center mb-4">{{title}}</h1>
+      <form id="organiserForm" method="post" action="/organiser/new-organiser">
+        <div class="form-group">
+           <label for="username">User Name</label>
+           <input type="text" class="form-control" id="username" name="username" placeholder="Enter organiser user name" required>
+        </div>
+        <div class="form-group">
+           <label for="email">Email Address</label>
+           <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+           <label for="pass">Password (8 characters minimum)</label>
+           <input type="password" class="form-control" id="pass" name="pass" placeholder="Enter password" minlength="8" required>
+        </div>
+        <div class="form-group">
+           <input type="submit" value="Add Organiser" class="btn btn-primary btn-block">
+        </div>
+      </form>
+      <div id="organiserError" class="alert alert-danger d-none"></div>
+      <a href="/organiser" class="btn btn-secondary mt-3 btn-block">Cancel</a>
+    </div>
+  </div>
+  {{> footer}}
+  
+  <script>
+    document.getElementById('organiserForm').addEventListener('submit', function(event) {
+      const messages = [];
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('pass').value;
+      
+      // Simple validations
+      if (!username.trim()) {
+        messages.push("User name cannot be empty.");
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        messages.push("Please enter a valid email address.");
+      }
+      if (password.length < 8) {
+        messages.push("Password must be at least 8 characters.");
+      }
+      
+      if (messages.length > 0) {
+        event.preventDefault(); // Stop form submission
+        const errorDiv = document.getElementById('organiserError');
+        errorDiv.innerHTML = messages.join("<br>");
+        errorDiv.classList.remove("d-none");
+      }
+    });
+  </script>
+</body>
+</html>

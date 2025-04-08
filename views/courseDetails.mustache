@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> header}}
+  <div class="container mt-4">
+    <h1>{{name}}</h1>
+    <p><strong>Description:</strong> {{description}}</p>
+    <p><strong>Duration:</strong> {{duration}}</p>
+    <p><strong>Price:</strong> £{{price}}</p>
+    <p><strong>Date:</strong> {{date}}</p>
+    <p><strong>Time:</strong> {{time}}</p>
+    <p><strong>Location:</strong> {{location}}</p>
+    <p><strong>Capacity:</strong> {{capacity}}</p>
+    
+    {{#isAvailable}}
+      <a href="/book/{{_id}}/options" class="btn btn-primary">Book this Course</a>
+    {{/isAvailable}}
+    {{^isAvailable}}
+      <button class="btn btn-secondary" disabled>Course Fully Booked</button>
+    {{/isAvailable}}
+    
+    <a href="/courses" class="btn btn-secondary">Back to Courses</a>
+  </div>
+  {{> footer}}
+</body>
+</html>
+
+

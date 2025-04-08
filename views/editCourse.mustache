@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{title}}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/style.css"><link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> header}}
+  <div class="container">
+    <h1>Edit Course</h1>
+    <form method="post" action="/organiser/edit-course/{{course._id}}">
+      <div class="form-group">
+        <label for="name">Course Name</label>
+        <input type="text" class="form-control" id="name" name="name" value="{{course.name}}" required>
+      </div>
+      <div class="form-group">
+        <label for="description">Course Description</label>
+        <textarea class="form-control" id="description" name="description" rows="3" required>{{course.description}}</textarea>
+      </div>
+      <div class="form-group">
+            <label for="price">Price (£)</label>
+            <input type="number" class="form-control" id="price" name="price" value="{{course.price}}" required>
+        </div>
+      <div class="form-group">
+        <label for="durationValue">Duration</label>
+        <div class="input-group">
+            <!-- Assuming you've pre-split duration in your controller as durationValue and durationUnit -->
+            <input type="number" class="form-control" id="durationValue" name="durationValue" value="{{course.durationValue}}" required>
+            <div class="input-group-append">
+            <select name="durationUnit" class="form-control">
+                <option value="days" {{#course.isDays}}selected{{/course.isDays}}>Days</option>
+                <option value="weeks" {{#course.isWeeks}}selected{{/course.isWeeks}}>Weeks</option>
+            </select>
+            </div>
+        </div>
+        </div>
+      <div class="form-group">
+        <label for="date">Start Date</label>
+        <input type="date" class="form-control" id="date" name="date" value="{{course.date}}" required>
+      </div>
+      <div class="form-group">
+        <label for="time">Start Time</label>
+        <input type="time" class="form-control" id="time" name="time" value="{{course.time}}" required>
+      </div>
+      <div class="form-group">
+        <label for="location">Location</label>
+        <select class="form-control" id="location" name="location" required>
+            <option value="">Select a Studio</option>
+            <option value="Studio A" {{#course.isStudioA}}selected{{/course.isStudioA}}>Studio A</option>
+            <option value="Studio B" {{#course.isStudioB}}selected{{/course.isStudioB}}>Studio B</option>
+            <option value="Studio C" {{#course.isStudioC}}selected{{/course.isStudioC}}>Studio C</option>
+            <option value="Studio D" {{#course.isStudioD}}selected{{/course.isStudioD}}>Studio D</option>
+            <option value="Studio E" {{#course.isStudioE}}selected{{/course.isStudioE}}>Studio E</option>
+        </select>
+        </div>
+      <div class="form-group">
+        <label for="capacity">Capacity</label>
+        <input type="number" class="form-control" id="capacity" name="capacity" value="{{course.capacity}}" required>
+      </div>
+      <input type="submit" value="Update Course" class="btn btn-primary">
+    </form>
+    <a href="/organiser" class="btn btn-secondary mt-3">Cancel</a>
+  </div>
+  {{> footer}}
+</body>
+</html>

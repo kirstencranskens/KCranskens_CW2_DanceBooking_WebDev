@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dance Booking System</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> header}}
+
+  <!-- Main content area -->
+  <div class="main-content">
+    <div class="container mt-4">
+      <h1>Welcome to Prism Dance Studio</h1>
+      <img src="/banner.svg" alt="Prism Dance Studio" class="img-fluid mb-4" style="width:100%;">
+      <a href="/courses" class="btn btn-primary">View Courses</a>
+      {{#user.organiser}}
+        <a href="/organiser/new-update" class="btn btn-info">Add Update</a>
+      {{/user.organiser}}
+      <div class="updates-container mt-4">
+        {{#updates}}
+          <div class="card mt-4">
+            <div class="card-body">
+              <h3>{{title}}</h3>
+              <p>{{content}}</p>
+              <p class="text-muted"><small>Posted on: {{createdAt}}</small></p>
+            </div>
+          </div>
+        {{/updates}}
+        {{^updates}}
+          <p class="mt-4">No updates available at this time.</p>
+        {{/updates}}
+      </div>
+    </div>
+  </div>
+
+  {{> footer}}
+</body>
+</html>

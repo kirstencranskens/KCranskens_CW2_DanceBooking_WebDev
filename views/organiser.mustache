@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="container">
+{{> header}}
+    <h1>{{title}}</h1>
+    <p>Welcome, {{user.user}}!</p>
+    <a href="/organiser/new-course" class="btn btn-primary">Add New Course</a>
+    <hr>
+    {{#courses}}
+  <div class="card mt-3">
+    <div class="card-header">{{name}}</div>
+    <div class="card-body">
+      <p>{{description}}</p>
+      <p>Duration: {{duration}}</p>
+      <p>Price: £{{price}}</p>
+      <p>Date: {{date}}</p>
+      <p>Time: {{time}}</p>
+      <p>Location: {{location}}</p>
+      <p>Capacity: {{capacity}}</p>
+      <a href="/organiser/edit-course/{{_id}}" class="btn btn-warning">Edit</a>
+      <a href="/organiser/delete-course/{{_id}}" class="btn btn-danger" onclick="return confirm('Are you sure?');">Delete</a>
+      <a href="/organiser/course/{{_id}}/bookings" class="btn btn-info">Generate Class List</a>
+    </div>
+  </div>
+  <hr>
+{{/courses}}
+    {{^courses}}
+        <p>No courses available.</p>
+    {{/courses}}
+    <a href="/logout" class="btn btn-secondary mt-3">Log Out</a>
+
+{{> footer}}
+
+</body>
+</html>

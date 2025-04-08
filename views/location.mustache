@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Our Locations</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+  <style>
+    /* Responsive map container */
+    .map-container {
+      position: relative;
+      padding-bottom: 56.25%; /* 16:9 ratio */
+      height: 0;
+      overflow: hidden;
+    }
+    .map-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  {{> header}}
+  <div class="container mt-4">
+    <h1>Our Locations</h1>
+    <p>Our studios are all located in the same building in Glasgow city centre.</p>
+    <p><strong>Address:</strong> 37 Ruthven Ln, Glasgow G12 9BG, UK</p>
+    
+    <!-- Embedded Google Map -->
+    <div class="map-container mt-4">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2821.299257711905!2d-4.256987584094292!3d55.86054027971064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x488845a61b0a8cfb%3A0x88d8f860c1e5a8e2!2s37%20Ruthven%20Ln%2C%20Glasgow%20G12%209BG%2C%20UK!5e0!3m2!1sen!2sus!4v1680363943152!5m2!1sen!2sus" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+    
+  </div>
+  {{> footer}}
+</body>
+</html>

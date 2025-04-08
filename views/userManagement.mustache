@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body class="container">
+  {{> header}}
+  <h1>{{title}}</h1>
+  
+  <!-- Link to add a new organiser -->
+  <div class="mb-3">
+    <a href="/organiser/new-organiser" class="btn btn-primary">Add New Organiser</a>
+  </div>
+  
+  <h2>Organisers</h2>
+  {{#organisers}}
+    <div class="card mt-3">
+      <div class="card-body">
+        <p><strong>User Name:</strong> {{user}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        {{^isCurrentUser}}
+          <a href="/organiser/users/delete/{{_id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete User</a>
+        {{/isCurrentUser}}
+      </div>
+    </div>
+  {{/organisers}}
+  {{^organisers}}
+    <p>No organisers found.</p>
+  {{/organisers}}
+  
+  <h2>Users</h2>
+  {{#users}}
+    <div class="card mt-3">
+      <div class="card-body">
+        <p><strong>User Name:</strong> {{user}}</p>
+        <p><strong>Email:</strong> {{email}}</p>
+        <a href="/organiser/users/delete/{{_id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this user?');">Delete User</a>
+      </div>
+    </div>
+  {{/users}}
+  {{^users}}
+    <p>No users found.</p>
+  {{/users}}
+  
+  <a href="/organiser" class="btn btn-secondary mt-3">Back to Dashboard</a>
+  {{> footer}}
+</body>
+</html>
+

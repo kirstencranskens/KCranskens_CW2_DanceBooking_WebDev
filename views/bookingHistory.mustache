@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> header}}
+  <div class="container mt-4">
+    <h1>{{title}}</h1>
+    {{#bookings}}
+      <div class="card mt-3">
+        <div class="card-body">
+          <p><strong>Course:</strong> {{courseName}}</p>
+          <p><strong>Booked On:</strong> {{bookedOn}}</p>
+          <p><strong>Your Name:</strong> {{userName}}</p>
+          <p><strong>Your Email:</strong> {{email}}</p>
+          {{#date}}
+            <p><strong>Course Date:</strong> {{date}}</p>
+          {{/date}}
+          {{#time}}
+            <p><strong>Course Time:</strong> {{time}}</p>
+          {{/time}}
+          {{#location}}
+            <p><strong>Location:</strong> {{location}}</p>
+          {{/location}}
+          <a href="/course/{{courseId}}" class="btn btn-primary mt-2">View Course Details</a>
+          <a href="/book/cancel/{{_id}}" class="btn btn-danger mt-2">Cancel Booking</a>
+        </div>
+      </div>
+    {{/bookings}}
+    {{^bookings}}
+      <p>You haven't booked any courses yet.</p>
+    {{/bookings}}
+    <a href="/courses" class="btn btn-secondary mt-3">Back to Courses</a>
+  </div>
+  {{> footer}}
+</body>
+</html>

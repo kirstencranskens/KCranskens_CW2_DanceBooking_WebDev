@@ -1,0 +1,96 @@
+/* Define your color variables for easy use */
+:root {
+    --deep-mocha: #4A2C2A;
+    --warm-taupe: #D2B1A3;
+    --cream: #F8F1E5;
+    --copper: #B87333;
+  }
+  
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+  
+  /* General body styles */
+  body {
+    background-color: white;
+    color: var(--deep-mocha);
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .main-content {
+    flex: 1;
+  }
+  
+  /* Header styles */
+  .navbar {
+    background-color: var(--cream);
+    border-bottom: 2px solid var(--deep-mocha);
+  }
+  
+  .navbar-brand {
+    color: var(--deep-mocha) !important;
+    font-weight: bold;
+  }
+  
+  /* Navigation link styles */
+  .nav-link {
+    color: var(--deep-mocha) !important;
+  }
+  
+  .nav-link:hover {
+    color: var(--copper) !important;
+  }
+  
+  /* Headings */
+  h1, h2, h3 {
+    color: var(--deep-mocha);
+  }
+  
+  /* Buttons */
+  .btn-primary {
+    background-color: var(--warm-taupe);
+    border-color: var(--deep-mocha);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--copper);
+    border-color: var(--deep-mocha);
+  }
+  
+  .btn-secondary {
+    background-color: var(--warm-taupe);
+    border-color: var(--deep-mocha);
+  }
+  
+  .btn-secondary:hover {
+    background-color: var(--copper);
+  }
+  
+  /* Additional styling for callout boxes, cards, etc. */
+  .card {
+    border: 1px solid var(--warm-taupe);
+    background-color: var(--cream);
+  }
+  
+  .card-header {
+    background-color: var(--warm-taupe);
+    color: var(--deep-mocha);
+    font-weight: bold;
+  }
+  
+  /* Footer styling */
+  footer {
+    background-color: var(--warm-taupe);
+    color: var(--deep-mocha);
+    padding: 1rem 0;
+    text-align: center;
+  }
+
+  .updates-container {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  

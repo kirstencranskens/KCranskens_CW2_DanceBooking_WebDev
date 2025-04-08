@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+{{> header}}
+<div class="container mt-4">
+    <h1>{{title}}</h1>
+    {{#bookings}}
+      <div class="card mt-3">
+          <div class="card-body">
+              <p><strong>Name:</strong> {{userName}}</p>
+              <p><strong>Email:</strong> {{email}}</p>
+              <p><strong>Booked On:</strong> {{bookedOn}}</p>
+          </div>
+      </div>
+    {{/bookings}}
+    {{^bookings}}
+      <p>No bookings for this course yet.</p>
+    {{/bookings}}
+    <a href="/organiser" class="btn btn-secondary mt-3">Back to Dashboard</a>
+    </div>
+{{> footer}}
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  {{> header}}
+  <div class="container mt-4">
+    <h1>{{title}}</h1>
+    
+    <!-- Dropdown filter -->
+    <div class="form-group">
+      <label for="filterSelect">Filter Courses</label>
+      <select id="filterSelect" class="form-control w-25">
+        <option value="all">All Courses</option>
+        <option value="current">Current Courses</option>
+        <option value="upcoming">Upcoming Courses</option>
+      </select>
+    </div>
+
+    <!-- All courses container -->
+    <div id="coursesContainer">
+      <!-- Current Courses Section -->
+      <div id="currentSection">
+        <h2>Current Courses</h2>
+        <div id="currentCourses">
+          {{#currentCourses}}
+            <div class="card mt-3 course-card current">
+              <div class="card-body">
+                <h3>{{name}}</h3>
+                <p>{{description}}</p>
+                <p><strong>Date:</strong> {{date}}</p>
+                <p><strong>Time:</strong> {{time}}</p>
+                <p><strong>Location:</strong> {{location}}</p>
+                <p><strong>Capacity Left:</strong> {{capacity}}</p>
+                <a href="/course/{{_id}}" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          {{/currentCourses}}
+          {{^currentCourses}}
+            <p>No current courses.</p>
+          {{/currentCourses}}
+        </div>
+      </div>
+
+      <!-- Upcoming Courses Section -->
+      <div id="upcomingSection" class="mt-5">
+        <h2>Upcoming Courses</h2>
+        <div id="upcomingCourses">
+          {{#upcomingCourses}}
+            <div class="card mt-3 course-card upcoming">
+              <div class="card-body">
+                <h3>{{name}}</h3>
+                <p>{{description}}</p>
+                <p><strong>Date:</strong> {{date}}</p>
+                <p><strong>Time:</strong> {{time}}</p>
+                <p><strong>Location:</strong> {{location}}</p>
+                <p><strong>Capacity Left:</strong> {{capacity}}</p>
+                <a href="/course/{{_id}}" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          {{/upcomingCourses}}
+          {{^upcomingCourses}}
+            <p>No upcoming courses.</p>
+          {{/upcomingCourses}}
+        </div>
+      </div>
+    </div>
+  </div>
+  {{> footer}}
+  
+  <!-- JavaScript to filter course sections -->
+  <script>
+    document.getElementById('filterSelect').addEventListener('change', function() {
+      var filter = this.value;
+      
+      // Show both sections by default
+      document.getElementById('currentSection').style.display = 'block';
+      document.getElementById('upcomingSection').style.display = 'block';
+
+      // Show all course cards in each section
+      var courses = document.getElementsByClassName('course-card');
+      for (var i = 0; i < courses.length; i++) {
+        courses[i].style.display = 'block';
+      }
+      
+      // Apply filtering based on selection
+      if (filter === 'current') {
+        // Hide upcoming section entirely
+        document.getElementById('upcomingSection').style.display = 'none';
+      } else if (filter === 'upcoming') {
+        // Hide current section entirely
+        document.getElementById('currentSection').style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
+
