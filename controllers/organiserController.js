@@ -244,8 +244,23 @@ exports.addNewUpdate = function(req, res) {
         if (err) {
             return res.status(500).send('Error adding update');
         }
-        res.redirect('/organiser'); // Or to a dedicated updates page if desired
+        res.redirect('/'); // Or to a dedicated updates page if desired
     });
 };
+
+// Delete an update (organiser-only)
+exports.deleteUpdate = function(req, res) {
+    const updateId = req.params.id;
+    const updateModel = require('../models/updateModel');
+    updateModel.db.remove({ _id: updateId }, { multi: false }, function(err, numRemoved) {
+        if (err) {
+            console.error("Error deleting update:", err);
+            return res.status(500).send("Error deleting update");
+        }
+        console.log(`Deleted update ${updateId}: ${numRemoved} removed.`);
+        res.redirect('/'); // Redirect back to the homepage (or a dedicated updates page if desired)
+    });
+};
+
 
 

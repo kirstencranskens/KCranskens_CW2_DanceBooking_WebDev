@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/style.css">
 </head>
-<body class="container">
+<body>
 {{> header}}
+<div class="container">
     <h1>{{title}}</h1>
     <p>Welcome, {{user.user}}!</p>
     <a href="/organiser/new-course" class="btn btn-primary">Add New Course</a>
@@ -35,9 +36,8 @@
     {{^courses}}
         <p>No courses available.</p>
     {{/courses}}
-    <a href="/logout" class="btn btn-secondary mt-3">Log Out</a>
 
 {{> footer}}
-
+</div>
 </body>
 </html>

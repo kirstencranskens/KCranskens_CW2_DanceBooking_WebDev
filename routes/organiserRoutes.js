@@ -17,6 +17,6 @@ router.get('/new-organiser', ensureOrganiser, organiserController.showNewOrganis
 router.post('/new-organiser', ensureOrganiser, organiserController.addNewOrganiser);
 router.get('/new-update', ensureOrganiser, organiserController.showNewUpdateForm);
 router.post('/new-update', ensureOrganiser, organiserController.addNewUpdate);
-
+router.get('/updates/delete/:id', ensureOrganiser, organiserController.deleteUpdate);
 
 module.exports = router;

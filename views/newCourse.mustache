@@ -8,60 +8,62 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="/style.css">
 </head>
-<body class="container">
-  {{> header}}
-    <h1>{{title}}</h1>
-    <form method="post" action="/organiser/new-course">
-        <div class="form-group">
-            <label for="name">Course Name</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Course Name" required>
-        </div>
-        <div class="form-group">
-            <label for="description">Course Description</label>
-            <textarea class="form-control" id="description" name="description" placeholder="Course Description" rows="3" required></textarea>
-        </div>
-        <div class="form-group">
-            <label for="durationValue">Duration</label>
-            <div class="input-group">
-                <input type="number" class="form-control" id="durationValue" name="durationValue" placeholder="Duration" required>
-                <div class="input-group-append">
-                <select name="durationUnit" class="form-control">
-                    <option value="days">Days</option>
-                    <option value="weeks" selected>Weeks</option>
-                </select>
+<body>
+{{> header}}
+<div class="container">
+            <h1>{{title}}</h1>
+            <form method="post" action="/organiser/new-course">
+                <div class="form-group">
+                    <label for="name">Course Name</label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Course Name" required>
                 </div>
-            </div>
-            </div>
-        <div class="form-group">
-            <label for="price">Price (£)</label>
-            <input type="number" class="form-control" id="price" name="price" placeholder="Price in pounds" required>
-        </div>
-        <div class="form-group">
-            <label for="date">Start Date</label>
-            <input type="date" class="form-control" id="date" name="date" required>
-        </div>
-        <div class="form-group">
-            <label for="time">Start Time</label>
-            <input type="time" class="form-control" id="time" name="time" required>
-        </div>
-        <div class="form-group">
-        <label for="location">Location</label>
-            <select class="form-control" id="location" name="location" required>
-                <option value="">Select a Studio</option>
-                <option value="Studio A">Studio A</option>
-                <option value="Studio B">Studio B</option>
-                <option value="Studio C">Studio C</option>
-                <option value="Studio D">Studio D</option>
-                <option value="Studio E">Studio E</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="capacity">Capacity</label>
-            <input type="number" class="form-control" id="capacity" name="capacity" placeholder="e.g., 20" required>
-        </div>
-        <input type="submit" value="Add Course" class="btn btn-primary">
-    </form>
+                <div class="form-group">
+                    <label for="description">Course Description</label>
+                    <textarea class="form-control" id="description" name="description" placeholder="Course Description" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="durationValue">Duration</label>
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="durationValue" name="durationValue" placeholder="Duration" required>
+                        <div class="input-group-append">
+                        <select name="durationUnit" class="form-control">
+                            <option value="days">Days</option>
+                            <option value="weeks" selected>Weeks</option>
+                        </select>
+                        </div>
+                    </div>
+                    </div>
+                <div class="form-group">
+                    <label for="price">Price (£)</label>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Price in pounds" required>
+                </div>
+                <div class="form-group">
+                    <label for="date">Start Date</label>
+                    <input type="date" class="form-control" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Start Time</label>
+                    <input type="time" class="form-control" id="time" name="time" required>
+                </div>
+                <div class="form-group">
+                <label for="location">Location</label>
+                    <select class="form-control" id="location" name="location" required>
+                        <option value="">Select a Studio</option>
+                        <option value="Studio A">Studio A</option>
+                        <option value="Studio B">Studio B</option>
+                        <option value="Studio C">Studio C</option>
+                        <option value="Studio D">Studio D</option>
+                        <option value="Studio E">Studio E</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="capacity">Capacity</label>
+                    <input type="number" class="form-control" id="capacity" name="capacity" placeholder="e.g., 20" required>
+                </div>
+                <input type="submit" value="Add Course" class="btn btn-primary">
+            </form>
 
-    {{> footer}}
-</body>
+            {{> footer}}
+        </div>
+    </body>
 </html>

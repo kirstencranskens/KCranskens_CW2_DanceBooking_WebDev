@@ -10,23 +10,24 @@
 </head>
 <body>
   {{> header}}
-
-  <!-- Main content area -->
-  <div class="main-content">
-    <div class="container mt-4">
-      <h1>Welcome to Prism Dance Studio</h1>
-      <img src="/banner.svg" alt="Prism Dance Studio" class="img-fluid mb-4" style="width:100%;">
-      <a href="/courses" class="btn btn-primary">View Courses</a>
-      {{#user.organiser}}
-        <a href="/organiser/new-update" class="btn btn-info">Add Update</a>
-      {{/user.organiser}}
-      <div class="updates-container mt-4">
+        <div class="main-content">
+          <div class="container mt-4">
+            <h1>Welcome to Prism Dance Studio</h1>
+            <img src="/banner.svg" alt="Prism Dance Studio" class="img-fluid mb-4" style="width:100%;">
+            <a href="/courses" class="btn btn-primary">View Courses</a>
+            {{#user.organiser}}
+              <a href="/organiser/new-update" class="btn btn-info">Add Update</a>
+            {{/user.organiser}}
+            <div class="updates-container mt-4">
         {{#updates}}
           <div class="card mt-4">
             <div class="card-body">
               <h3>{{title}}</h3>
               <p>{{content}}</p>
               <p class="text-muted"><small>Posted on: {{createdAt}}</small></p>
+              {{#user.organiser}}
+                <a href="/organiser/updates/delete/{{_id}}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this update?');">Delete Update</a>
+              {{/user.organiser}}
             </div>
           </div>
         {{/updates}}
