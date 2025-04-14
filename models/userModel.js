@@ -5,6 +5,7 @@ const saltRounds = 10;
 
 class UserModel {
     constructor(dbFilePath) {
+        // Initialize database: use file storage if dbFilePath provided; otherwise run in memory.
         if (dbFilePath) {
             this.db = new Datastore({ filename: dbFilePath, autoload: true });
             console.log('UserModel connected to ' + dbFilePath);
@@ -14,6 +15,7 @@ class UserModel {
         }
     }
 
+    // Pre-seed the database with a default organiser.
     init() {
         this.db.insert({
             user: 'organiser1',
@@ -28,11 +30,11 @@ class UserModel {
     // Create a new user with a hashed password
 create(username, email, password, cb) {
     const that = this;
-    // Ensure email is always stored in lowercase
+    // Convert email to lowercase for consistent storage
     const lowerEmail = email.toLowerCase();
     bcrypt.hash(password, saltRounds)
         .then(function(hash) {
-            // Assign a default role "user" if needed; you can also do this later
+            // Create the user entry (default role can be assigned later)
             const entry = { user: username, email: lowerEmail, password: hash };
             that.db.insert(entry, function(err, doc) {
                 if (err) {
@@ -46,7 +48,7 @@ create(username, email, password, cb) {
 }
 
 
-    // Lookup a user by email; calls cb(err, user) with user = null if not found
+// Looks up a user by email (ignores case) and calls the callback with the user data.
 lookup(email, cb) {
     const lowerEmail = email.toLowerCase();
     this.db.find({ email: lowerEmail }, function(err, entries) {
@@ -62,7 +64,7 @@ lookup(email, cb) {
 }
 
 
-    // Retrieve all users
+// Retrieve all users
 getAllUsers(cb) {
     this.db.find({}, function(err, users) {
       if (err) {
@@ -81,6 +83,7 @@ getAllUsers(cb) {
   
 }
 
+// Create an instance of UserModel, initialize with a pre-seeded organiser, and export it.
 const dao = new UserModel();
 dao.init();
 module.exports = dao;

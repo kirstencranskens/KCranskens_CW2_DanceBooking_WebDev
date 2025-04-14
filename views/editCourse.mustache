@@ -1,3 +1,10 @@
+<!-- 
+  Edit Course Page Template
+  - Displays a form pre-filled with the details of a course so that the organiser can update it.
+  - The form includes fields for course name, description, price, duration (value and unit), start date, start time, location, and capacity.
+  - Provides a "Cancel" button to return to the organiser dashboard.
+-->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,7 +35,7 @@
       <div class="form-group">
         <label for="durationValue">Duration</label>
         <div class="input-group">
-            <!-- Assuming you've pre-split duration in your controller as durationValue and durationUnit -->
+           <!-- Assuming pre-split duration values provided by controller -->
             <input type="number" class="form-control" id="durationValue" name="durationValue" value="{{course.durationValue}}" required>
             <div class="input-group-append">
             <select name="durationUnit" class="form-control">

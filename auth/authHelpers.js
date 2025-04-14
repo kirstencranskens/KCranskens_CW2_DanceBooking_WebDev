@@ -1,4 +1,6 @@
 // auth/authHelpers.js
+
+// Checks if the user is logged in. Redirects to the login page if not.
 exports.ensureAuthenticated = function(req, res, next) {
     if (req.isAuthenticated && req.isAuthenticated()) {
       return next();
@@ -6,6 +8,8 @@ exports.ensureAuthenticated = function(req, res, next) {
     res.redirect('/login');
 };
 
+
+// Checks if the logged-in user is an organiser. Sends a 403 error if not.
 exports.ensureOrganiser = function(req, res, next) {
     if (req.isAuthenticated && req.isAuthenticated() && req.user.role === 'organiser') {
         return next();

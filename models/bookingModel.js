@@ -3,6 +3,7 @@ const nedb = require('gray-nedb');
 
 class BookingModel {
   constructor(dbFilePath) {
+    // Initialize the database: use file storage if a path is provided; otherwise, use in-memory mode.
     if (dbFilePath) {
       this.db = new nedb({ filename: dbFilePath, autoload: true });
       console.log('BookingModel connected to ' + dbFilePath);
@@ -12,7 +13,7 @@ class BookingModel {
     }
   }
 
-  // Create a new booking
+  // Adds a new booking to the database. The booking date is set automatically.
   addBooking(bookingData, cb) {
     const booking = {
       ...bookingData,
@@ -29,7 +30,7 @@ class BookingModel {
     });
   }
 
-  // Retrieve all bookings for a specific course
+  // Retrieves the count of bookings for a specific course.
   getBookingCountForCourse(courseId) {
     return new Promise((resolve, reject) => {
       this.db.count({ courseId: courseId }, function(err, count) {
@@ -69,29 +70,11 @@ getBookingsForCourse(courseId) {
   }  
   
 
-  // Seed the database with sample bookings
-  init() {
-    // Clear existing bookings (for testing)
-    //this.db.remove({}, { multi: true }, (err, numRemoved) => {
-    //  if (err) {
-    //    console.log('Error clearing bookings:', err);
-    //  }
-      // Insert sample bookings
-    //  this.db.insert([
-    //    { courseId: 'sampleCourseId1', userName: 'Alice', email: 'alice@example.com', bookedOn: '2023-01-01' },
-    //    { courseId: 'sampleCourseId2', userName: 'Bob', email: 'bob@example.com', bookedOn: '2023-01-02' }
-    //  ], (err, newDocs) => {
-    //    if (err) {
-    //      console.log('Error seeding bookings:', err);
-    //    } else {
-    //      console.log('Sample bookings inserted:', newDocs);
-    //    }
-    //  });
-    //});
-  }
+ // Empty init function (can be used for seeding or initialization if needed).
+  init() {}
 }
 
-// Create an instance, seed the bookings, and export it
+// Create an instance of BookingModel, run any initialization code, and export it.
 const bookingModelInstance = new BookingModel();
 bookingModelInstance.init();
 module.exports = bookingModelInstance;

@@ -1,11 +1,12 @@
-/* Define color variables for easy use */
+/* Define colour variables for easy use*/
 :root {
-    --deep-mocha: #4A2C2A;
-    --warm-taupe: #D2B1A3;
-    --cream: #F8F1E5;
-    --copper: #B87333;
+    --deep-mocha: #4A2C2A; /* A rich, dark brown for main text or headings */
+    --warm-taupe: #D2B1A3; /* A soft, warm neutral tone */
+    --cream: #F8F1E5; /* A light cream shade for backgrounds and highlights */
+    --copper: #B87333; /* A metallic copper tone for accents (e.g., hover effects) */
   }
   
+  /* Ensure the html and body elements take up full height and have no margin or padding */
   html, body {
     height: 100%;
     margin: 0;
@@ -21,6 +22,7 @@
     font-family: 'Arial', sans-serif;
   }
 
+  /* The main content area stretches to fill available space and adds bottom padding */
   .main-content {
     flex: 1;
     padding-bottom: 20px; 
@@ -28,40 +30,42 @@
   
   /* Header styles */
   .navbar {
-    background-color: var(--cream);
-    border-bottom: 2px solid var(--deep-mocha);
+    background-color: var(--cream); /* Use cream for the navbar background */
+    border-bottom: 2px solid var(--deep-mocha); /* Dark border at the bottom for separation */
   }
   
   .navbar-brand {
-    color: var(--deep-mocha) !important;
-    font-weight: bold;
+    color: var(--deep-mocha) !important; /* Brand name in dark mocha */
+    font-weight: bold; /* Bold font for emphasis */
   }
   
   /* Navigation link styles */
   .nav-link {
-    color: var(--deep-mocha) !important;
+    color: var(--deep-mocha) !important; /* Nav links in deep mocha */
   }
   
   .nav-link:hover {
-    color: var(--copper) !important;
+    color: var(--copper) !important; /* On hover, nav links change to copper color */
   }
   
-  /* Headings */
+ /* Headings styles: h1, h2, h3 are styled with deep mocha */
   h1, h2, h3 {
     color: var(--deep-mocha);
   }
   
-  /* Buttons */
+  /* Button styles */
+/* Primary buttons use the warm taupe color with a deep mocha border */
   .btn-primary {
-    background-color: var(--warm-taupe);
+    background-color: var(--warm-taupe); 
     border-color: var(--deep-mocha);
   }
   
   .btn-primary:hover {
-    background-color: var(--copper);
+    background-color: var(--copper); /* Change to copper on hover */
     border-color: var(--deep-mocha);
   }
   
+  /* Secondary buttons similar to primary, using warm taupe and deep mocha */
   .btn-secondary {
     background-color: var(--warm-taupe);
     border-color: var(--deep-mocha);
@@ -72,33 +76,35 @@
   }
   
   /* Additional styling for callout boxes, cards, etc. */
+/* Cards have a border in warm taupe and a cream background */
   .card {
     border: 1px solid var(--warm-taupe);
     background-color: var(--cream);
   }
   
+  /* Card header styling for emphasis */
   .card-header {
     background-color: var(--warm-taupe);
     color: var(--deep-mocha);
     font-weight: bold;
   }
   
-  /* Footer styling */
+ /* Footer styling */
+/* Footer has a warm taupe background with deep mocha text, centered with reduced padding */
   footer {
     background-color: var(--warm-taupe);
     color: var(--deep-mocha);
     padding: 0.5rem 0;  /* Reduced padding for a smaller footer */
     text-align: center;
-    /* Remove 'position: fixed' and related properties */
   }
   
-
+/* Container for updates with a fixed height and vertical scroll */
   .updates-container {
     max-height: 400px;
     overflow-y: auto;
   }
   
-  /* styles for centering the card */
+  /* Style for centering the login card with box shadow and padding */
   .login-card {
     max-width: 400px;
     margin: 50px auto; /* centers the card and adds vertical spacing */

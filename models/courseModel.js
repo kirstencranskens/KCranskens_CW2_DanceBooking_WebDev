@@ -3,6 +3,7 @@ const nedb = require('gray-nedb');
 
 class CourseModel {
   constructor(dbFilePath) {
+    // Initialize the database: use file storage if a path is provided, otherwise use in-memory mode.
     if (dbFilePath) {
       this.db = new nedb({ filename: dbFilePath, autoload: true });
       console.log('CourseModel connected to ' + dbFilePath);

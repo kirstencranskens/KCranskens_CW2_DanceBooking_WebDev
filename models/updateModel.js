@@ -3,6 +3,7 @@ const nedb = require('gray-nedb');
 
 class UpdateModel {
   constructor(dbFilePath) {
+    // Initialize the database: use file storage if a path is provided, otherwise use in-memory mode.
     if (dbFilePath) {
       this.db = new nedb({ filename: dbFilePath, autoload: true });
       console.log('UpdateModel connected to ' + dbFilePath);
@@ -38,5 +39,6 @@ class UpdateModel {
   }
 }
 
+// Create an instance of UpdateModel and export it.
 const updateModelInstance = new UpdateModel();
 module.exports = updateModelInstance;

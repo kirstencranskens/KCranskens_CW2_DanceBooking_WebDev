@@ -3,8 +3,9 @@ const bookingModel = require('../models/bookingModel');
 const courseModel = require('../models/courseModel');
 const { ensureAuthenticated } = require('../auth/authHelpers');
 
+// Gets all bookings for the logged‑in user and renders the bookings history page.
 exports.getUserBookings = function(req, res) {
-// Ensure the user is logged in (you could also attach ensureAuthenticated in your route)
+    // If user is not logged in, redirect to login with redirect URL.
 if (!req.user) {
     return res.redirect('/login?redirect=/bookings');
   }
@@ -22,6 +23,7 @@ if (!req.user) {
     });
 };
 
+// Retrieves course details and renders the booking form with course information.
 exports.showBookingForm = function(req, res) {
     const courseId = req.params.courseId;
     courseModel.getCourseById(courseId)
@@ -29,7 +31,6 @@ exports.showBookingForm = function(req, res) {
          if (!course) {
              return res.status(404).send("Course not found");
          }
-         // Render bookingForm with both courseId and courseName
          res.render('bookingForm', { 
            title: 'Book a Course', 
            courseId: courseId, 
@@ -42,54 +43,48 @@ exports.showBookingForm = function(req, res) {
       });
 };
 
-
+// Processes a booking: checks capacity, updates capacity, and renders a confirmation page.
 exports.processBooking = function(req, res) {
     const courseId = req.params.courseId;
-    // We'll get the course details first before building bookingData.
     courseModel.getCourseById(courseId)
       .then((course) => {
          if (!course) {
              return res.status(404).send("Course not found");
          }
-         // Use course.capacity if provided; otherwise, default to 20 (using an explicit check)
+         // Determine available capacity (defaulting to 20 if not provided)
          let capacity = (course.capacity !== undefined && course.capacity !== null) ? course.capacity : 20;
          
-         // Count current bookings for this course
          return bookingModel.getBookingCountForCourse(courseId)
             .then((count) => {
                 if (count >= capacity) {
-                    // Course is fully booked
                     return res.send("Course fully booked");
                 }
-                
-                // Build bookingData including extra course details
+                // Create booking data, including extra course details
                 const bookingData = {
                     courseId: courseId,
                     userName: req.body.userName,
                     email: req.body.email,
                     bookedOn: new Date().toISOString().split('T')[0],
-                    courseName: course.name,    // extra detail
-                    date: course.date,          // extra detail
-                    time: course.time,          // extra detail
-                    location: course.location   // extra detail
+                    courseName: course.name,    
+                    date: course.date,          
+                    time: course.time,          
+                    location: course.location   
                 };
 
-                // Otherwise, add the booking
+                
                 bookingModel.addBooking(bookingData, function(err, bookingDoc) {
                     if (err) {
                         return res.status(500).send("Error processing booking");
                     }
-                    // (Optional) Ensure the booking document has the courseId (should already be there)
+                    // Log the booking document and update course capacity
                     bookingDoc.courseId = courseId;
                     console.log("Booking Doc:", bookingDoc);
                     
-                    // After adding the booking, decrement the course capacity by 1.
                     let newCapacity = capacity - 1;
                     courseModel.updateCourse(courseId, { capacity: newCapacity }, function(err, numReplaced) {
                         if (err) {
                             return res.status(500).send("Error updating course capacity");
                         }
-                        // Render the booking confirmation page using the full booking document
                         res.render('bookingConfirmation', { booking: bookingDoc });
                     });
                 });
@@ -101,21 +96,21 @@ exports.processBooking = function(req, res) {
       });
 };
 
-
+// Renders a page with booking options for non-logged-in users.
+// If the user is logged in, redirects directly to the booking form.
 exports.bookingOptions = function(req, res) {
     const courseId = req.params.courseId;
-    // If the user is already logged in, you might want to skip this page.
     if (req.user) {
       return res.redirect('/book/' + courseId);
     }
-    // Render the booking options page for non-logged-in users
     res.render('bookingOptions', { title: 'Book this Course', courseId: courseId });
   };
 
+ // Cancels a booking: retrieves the booking, updates course capacity,
+ // removes the booking, and redirects to the user's bookings page.
   exports.cancelBooking = function(req, res) {
     const bookingId = req.params.bookingId;
     
-    // First, retrieve the booking to know which course it is associated with.
     bookingModel.db.findOne({ _id: bookingId }, function(err, booking) {
         if (err || !booking) {
             console.log("Error retrieving booking or booking not found:", err);
@@ -123,20 +118,19 @@ exports.bookingOptions = function(req, res) {
         }
         const courseId = booking.courseId;
         
-        // Get the course to retrieve the current capacity.
         courseModel.getCourseById(courseId)
           .then((course) => {
               if (!course) {
                   return res.status(404).send("Course not found");
               }
-              // Increment the course capacity by 1
+
               let newCapacity = course.capacity + 1;
               courseModel.updateCourse(courseId, { capacity: newCapacity }, function(err, numReplaced) {
                   if (err) {
                       console.log("Error updating course capacity:", err);
                       return res.status(500).send("Error updating course capacity");
                   }
-                  // Remove the booking
+
                   bookingModel.db.remove({ _id: bookingId }, {}, function(err, numRemoved) {
                       if (err) {
                           console.log("Error cancelling booking:", err);

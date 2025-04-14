@@ -1,8 +1,8 @@
 // controllers/publicController.js
 const courseModel = require('../models/courseModel');
-
 const updateModel = require('../models/updateModel');
 
+// Renders the homepage, including updates and user info.
 exports.index = function(req, res) {
     updateModel.getAllUpdates()
       .then((updates) => {
@@ -14,19 +14,19 @@ exports.index = function(req, res) {
       });
 };
 
-
+// Renders the courses page, separating current and upcoming courses based on date.
 exports.courses = function(req, res) {
     courseModel.getAllCourses()
         .then((courses) => {
             const today = new Date();
             const currentCourses = courses.filter(course => {
                 const courseDate = new Date(course.date);
-                // Example logic: if the course starts on or before today
+                // Course is current if it starts on or before today
                 return courseDate <= today;
             });
             const upcomingCourses = courses.filter(course => {
                 const courseDate = new Date(course.date);
-                // Example logic: if the course starts after today
+                // Course is upcoming if it starts after today
                 return courseDate > today;
             });
             res.render('courses', { 
@@ -40,7 +40,7 @@ exports.courses = function(req, res) {
             res.status(500).send('Error retrieving courses');
         });
 };
-
+// Renders the details page for a specific course.
 exports.courseDetails = function(req, res) {
     const id = req.params.id;
     courseModel.getCourseById(id)
@@ -48,7 +48,7 @@ exports.courseDetails = function(req, res) {
             if (!course) {
                 return res.status(404).send("Course not found");
             }
-            // Determine if the course can still be booked
+           // Add a flag to check if the course is still available for booking.
             course.isAvailable = course.capacity > 0;
             res.render('courseDetails', { title: 'Course Details', ...course });
         })

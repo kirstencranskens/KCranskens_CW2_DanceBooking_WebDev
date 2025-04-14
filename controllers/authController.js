@@ -1,4 +1,6 @@
 // controllers/authController.js
+
+// Renders the login page with any flash error messages and an optional redirect URL.
 exports.showLoginPage = function(req, res) {
     res.render('user/login', { 
       title: 'Sign In', 
@@ -6,11 +8,18 @@ exports.showLoginPage = function(req, res) {
       redirect: req.query.redirect 
     });
 };
-
+// Renders the registration page with any flash error messages and an optional redirect URL.
 exports.showRegisterPage = function(req, res) {
-    res.render('user/register', { title: 'Register', error: req.flash('error'), redirect: req.query.redirect });
+    res.render('user/register', {
+         title: 'Register',
+          error: req.flash('error'),
+           redirect: req.query.redirect 
+    });
 };
 
+// Processes new user registration, ensuring all fields are filled, passwords match,
+// and that no user exists with the provided email (case-insensitive). If valid, it creates
+// the user and logs them in, then redirects to the specified URL.
 exports.postNewUser = function(req, res, next) {
     const username = req.body.username;
     // Lower-case the email right away
@@ -53,8 +62,7 @@ exports.postNewUser = function(req, res, next) {
     });
 };
 
-
-
+// Logs the user out and redirects to the homepage.
 exports.logout = function(req, res, next) {
     req.logout(function(err) {
       if (err) { return next(err); }

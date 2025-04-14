@@ -1,8 +1,8 @@
 // controllers/organiserController.js
 const courseModel = require('../models/courseModel');
 const bookingModel = require('../models/bookingModel');
-//const bookingModel = new bookingModel();
 
+// Renders the organiser dashboard with a list of all courses.
 exports.dashboard = function(req, res) {
     courseModel.getAllCourses()
         .then((courses) => {
@@ -18,11 +18,11 @@ exports.dashboard = function(req, res) {
             res.status(500).send("Error retrieving courses");
         });
 };
-
+// Displays the form to add a new course.
 exports.showNewCourseForm = function(req, res) {
     res.render('newCourse', { title: 'Add New Course' });
 };
-
+// Processes the form submission for adding a new course.
 exports.addNewCourse = function(req, res) {
     // Combine duration value and unit into a single string
     const durationValue = req.body.durationValue;
@@ -47,8 +47,7 @@ exports.addNewCourse = function(req, res) {
     });
 };
 
-
-
+// Displays the form to edit an existing course with pre-filled details.
 exports.showEditCourseForm = function(req, res) {
     const id = req.params.id;
     courseModel.getCourseById(id)
@@ -63,7 +62,7 @@ exports.showEditCourseForm = function(req, res) {
           course.isStudioD = course.location === 'Studio D';
           course.isStudioE = course.location === 'Studio E';
 
-          // Also split the duration if needed (as before)
+          // Split duration into value and unit
           let durationParts = course.duration.split(' ');
           course.durationValue = durationParts[0];
           course.durationUnit = durationParts[1] || 'weeks';
@@ -78,7 +77,7 @@ exports.showEditCourseForm = function(req, res) {
       });
 };
 
-
+// Processes the edit course form submission and updates the course.
 exports.editCourse = function(req, res) {
     const id = req.params.id;
     // Combine the new duration value and unit
@@ -104,18 +103,18 @@ exports.editCourse = function(req, res) {
     });
 };
 
-
+// Deletes a course and its associated bookings.
 exports.deleteCourse = function(req, res) {
     const id = req.params.id;
     courseModel.deleteCourse(id, function(err, numRemoved) {
         if (err) {
             return res.status(500).send("Error deleting course");
         }
-        // After deleting the course, delete all bookings with this courseId
+        // Delete all bookings associated with the course
         bookingModel.db.remove({ courseId: id }, { multi: true }, function(err, numBookingsRemoved) {
             if (err) {
                 console.log("Error deleting associated bookings:", err);
-                // Optionally handle this error or log it and still redirect
+                // Even if bookings deletion fails, still redirect
             } else {
                 console.log(`Deleted ${numBookingsRemoved} associated booking(s).`);
             }
@@ -124,9 +123,9 @@ exports.deleteCourse = function(req, res) {
     });
 };
 
-
+// Renders the class list for a given course.
 exports.showClassList = function(req, res) {
-    const courseId = req.params.id;  // Expect the course id from the route
+    const courseId = req.params.id;  
     bookingModel.getBookingsForCourse(courseId)
         .then((bookings) => {
             res.render('classList', { 
@@ -142,7 +141,7 @@ exports.showClassList = function(req, res) {
 };
 
 
-// List all users (organiser-only)
+// Lists all users by separating organisers and regular users.
 exports.listUsers = function(req, res) {
     const userModel = require('../models/userModel');
     userModel.getAllUsers(function(err, users) {
@@ -151,19 +150,19 @@ exports.listUsers = function(req, res) {
             return res.status(500).send("Error retrieving users");
         }
         
-        // Separate users into organisers and regular users
+        
         const organisers = [];
         const regularUsers = [];
-        
+        // Mark the currently logged-in organiser so they cannot be deleted
         users.forEach(user => {
-            // Mark the currently logged in organiser so they cannot be deleted
+            // Separate based on role
             if (req.user && req.user._id === user._id) {
                 user.isCurrentUser = true;
             } else {
                 user.isCurrentUser = false;
             }
             
-            // Check the user's role
+            
             if (user.role && user.role === 'organiser') {
                 organisers.push(user);
             } else {
@@ -180,10 +179,10 @@ exports.listUsers = function(req, res) {
 };
 
 
-  // Remove a user (organiser-only)
+  // Deletes a user, ensuring an organiser cannot delete themselves.
   exports.deleteUser = function(req, res) {
     const userId = req.params.id;
-    // Prevent an organiser from deleting themselves
+    
     if (req.user && req.user._id === userId) {
         return res.status(403).send("You cannot delete your own account.");
     }
@@ -197,12 +196,12 @@ exports.listUsers = function(req, res) {
     });
 };
 
-// Display the form to add a new organiser
+// Displays the form to add a new organiser.
 exports.showNewOrganiserForm = function(req, res) {
     res.render('newOrganiser', { title: 'Add New Organiser' });
 };
 
-// Process new organiser creation
+// Processes the creation of a new organiser.
 exports.addNewOrganiser = function(req, res) {
     const username = req.body.username;
     const email = req.body.email;
@@ -217,7 +216,8 @@ exports.addNewOrganiser = function(req, res) {
         if (err) {
             return res.status(500).send("Error creating organiser.");
         }
-        // Update the newly created user's role to 'organiser' in the database
+        
+        // Update the new user's role to 'organiser'
         userModel.db.update({ _id: newUser._id }, { $set: { role: 'organiser' }}, {}, function(err, numReplaced) {
             if (err) {
                 return res.status(500).send("Error updating organiser role.");
@@ -227,12 +227,12 @@ exports.addNewOrganiser = function(req, res) {
     });
 };
 
-// Display the new update form
+// Displays the form to add a new update.
 exports.showNewUpdateForm = function(req, res) {
     res.render('newUpdate', { title: 'Add New Update' });
 };
 
-// Process adding a new update
+// Processes the addition of a new update.
 exports.addNewUpdate = function(req, res) {
     const updateData = {
         title: req.body.title,
@@ -244,11 +244,10 @@ exports.addNewUpdate = function(req, res) {
         if (err) {
             return res.status(500).send('Error adding update');
         }
-        res.redirect('/'); // Or to a dedicated updates page if desired
+        res.redirect('/'); // Redirect to the homepage
     });
 };
-
-// Delete an update (organiser-only)
+// Deletes an update.
 exports.deleteUpdate = function(req, res) {
     const updateId = req.params.id;
     const updateModel = require('../models/updateModel');
@@ -258,7 +257,7 @@ exports.deleteUpdate = function(req, res) {
             return res.status(500).send("Error deleting update");
         }
         console.log(`Deleted update ${updateId}: ${numRemoved} removed.`);
-        res.redirect('/'); // Redirect back to the homepage (or a dedicated updates page if desired)
+        res.redirect('/'); // Redirect to the homepage
     });
 };
 

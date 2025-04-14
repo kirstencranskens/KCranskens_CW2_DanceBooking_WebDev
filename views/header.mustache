@@ -1,16 +1,24 @@
+<!-- 
+  Header Template
+  - Displays the navigation bar for Prism Dance Studio.
+  - Shows the brand on the left.
+  - On the right, displays a welcome message if the user is logged in, along with a burger menu.
+  - The burger menu toggles the collapsible navigation links (Home, Courses, About Us, Locations, etc.).
+  - Certain links show up based on whether a user is logged in or if the user has organiser privileges.
+-->
+
 <nav class="navbar navbar-light bg-light">
 
   <div class="container-fluid d-flex justify-content-between align-items-center">
     <!-- Left side: Brand -->
     <a class="navbar-brand" href="/">Prism Dance Studio</a>
     
-    <!-- Right side: Username (left) + Toggler (right) -->
+    <!-- Right side: Username (left) + Burger Menu (right) -->
     <div>
       {{#user}}
         <span class="navbar-text mr-2">Welcome, {{user.user}}!</span>
       {{/user}}
       {{^user}}
-        <!-- Optionally, display a placeholder or nothing -->
       {{/user}}
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
               aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

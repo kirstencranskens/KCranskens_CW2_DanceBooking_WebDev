@@ -3,13 +3,17 @@ const router = express.Router();
 const bookingController = require('../controllers/bookingController');
 const { ensureAuthenticated } = require('../auth/authHelpers');
 
-// New route for cancelling a booking (using the booking record's _id)
+// Route for cancelling a booking by its _id.
+// This route requires the user to be authenticated.
 router.get('/cancel/:bookingId', ensureAuthenticated, bookingController.cancelBooking);
 
-// New route for viewing a user's bookings should come first
+// Route to view all bookings for the logged‑in user.
+// This route requires authentication and is placed before the course-specific routes.
 router.get('/my-bookings', ensureAuthenticated, bookingController.getUserBookings);
 
-// Then the other routes:
+// Route for non-logged-in booking options and booking functionalities:
+// - First, display booking options for a course.
+// - Then, show the booking form and process the booking request.
 router.get('/:courseId/options', bookingController.bookingOptions);
 router.get('/:courseId', bookingController.showBookingForm);
 router.post('/:courseId', bookingController.processBooking);

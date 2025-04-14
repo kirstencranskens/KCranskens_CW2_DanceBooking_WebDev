@@ -1,3 +1,13 @@
+<!-- 
+  Register Page Template
+  - Displays a centered card for user registration.
+  - Shows flash error messages (if any) at the top.
+  - Contains a form with fields for username, email, password, and password confirmation.
+  - Includes client-side validation to check email format and matching passwords before submission.
+  - The form posts data to "/register" along with a hidden redirect URL.
+-->
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,7 +72,7 @@
       if (password !== confirm) {
         messages.push("Passwords do not match.");
       }
-      // You can add more validations as needed
+      
 
       if (messages.length > 0) {
         event.preventDefault(); // Prevent form submission
