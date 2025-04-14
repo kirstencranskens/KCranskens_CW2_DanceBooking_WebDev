@@ -83,11 +83,17 @@
   
   /* Footer styling */
   footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
     background-color: var(--warm-taupe);
     color: var(--deep-mocha);
     padding: 1rem 0;
     text-align: center;
+    z-index: 10; /* Ensures it stays on top if needed */
   }
+  
 
   .updates-container {
     max-height: 400px;
