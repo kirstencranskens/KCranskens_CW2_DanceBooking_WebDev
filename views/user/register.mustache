@@ -7,15 +7,26 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/style.css">
+  <style>
+    /* Style for the registration card to center it and give it a neat look */
+    .register-card {
+      max-width: 400px;
+      margin: 50px auto; /* Center horizontally and add vertical spacing */
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      background-color: var(--cream);
+    }
+  </style>
 </head>
 <body>
   {{> header}}
   <div class="container mt-4">
-  {{#error}}
-  <div class="alert alert-danger">{{.}}</div>
-  {{/error}}
     <div class="register-card">
       <h1 class="text-center mb-4">{{title}}</h1>
+      {{#error}}
+        <div class="alert alert-danger">{{.}}</div>
+      {{/error}}
       <form id="registerForm" method="post" action="/register">
         <div class="form-group">
           <label for="username">User Name</label>
