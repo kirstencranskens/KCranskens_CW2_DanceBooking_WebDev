@@ -38,7 +38,7 @@
             <p><strong>Location:</strong> {{location}}</p>
           {{/location}}
           <a href="/course/{{courseId}}" class="btn btn-primary mt-2">View Details</a>
-          <a href="/book/cancel/{{_id}}" class="btn btn-danger mt-2">Cancel Booking</a>
+          <a href="/book/cancel/{{_id}}" class="btn btn-danger mt-2"onclick="return confirm('Are you sure?');">Cancel Booking</a>
         </div>
       </div>
     {{/bookings}}
