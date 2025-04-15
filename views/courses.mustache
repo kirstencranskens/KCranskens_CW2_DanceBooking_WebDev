@@ -12,22 +12,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{title}}</title>
+  <title>Courses and Classes</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   {{> header}}
   <div class="container mt-4">
-    <h1>{{title}}</h1>
+    <h1>Courses and Classes</h1>
     
     <!-- Dropdown filter -->
     <div class="form-group">
-      <label for="filterSelect">Filter Courses</label>
+      <label for="filterSelect">Filter by: </label>
       <select id="filterSelect" class="form-control w-25">
-        <option value="all">All Courses</option>
-        <option value="current">Current Courses</option>
-        <option value="upcoming">Upcoming Courses</option>
+        <option value="all">All</option>
+        <option value="current">Current</option>
+        <option value="upcoming">Upcoming</option>
       </select>
     </div>
 
@@ -35,7 +35,7 @@
     <div id="coursesContainer">
       <!-- Current Courses Section -->
       <div id="currentSection">
-        <h2>Current Courses</h2>
+        <h2>Current</h2>
         <div id="currentCourses">
           {{#currentCourses}}
             <div class="card mt-3 course-card current">
@@ -51,14 +51,14 @@
             </div>
           {{/currentCourses}}
           {{^currentCourses}}
-            <p>No current courses.</p>
+            <p>No current courses or classes</p>
           {{/currentCourses}}
         </div>
       </div>
 
       <!-- Upcoming Courses Section -->
       <div id="upcomingSection" class="mt-5">
-        <h2>Upcoming Courses</h2>
+        <h2>Upcoming</h2>
         <div id="upcomingCourses">
           {{#upcomingCourses}}
             <div class="card mt-3 course-card upcoming">
@@ -74,7 +74,7 @@
             </div>
           {{/upcomingCourses}}
           {{^upcomingCourses}}
-            <p>No upcoming courses.</p>
+            <p>No upcoming courses or classes.</p>
           {{/upcomingCourses}}
         </div>
       </div>

@@ -17,10 +17,11 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> 
    <link rel="stylesheet" href="/style.css">
 </head>
-<body class="container">
-    {{> header}}
-    <h1>{{title}}</h1>
-    <p>Booking for Course: {{courseName}}</p>
+<body>
+ {{> header}}
+<div class="container">
+    <h1>Booking Details</h1>
+    <p>Booking for: {{courseName}}</p>
 
     <form id="bookingForm" method="post" action="/book/{{courseId}}">
         <div class="form-group">
@@ -32,7 +33,7 @@
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
         </div>
         <div class="form-group">
-            <input type="submit" value="Book Course" class="btn btn-primary">
+            <input type="submit" value="Book" class="btn btn-primary">
         </div>
     </form>
 
@@ -63,5 +64,6 @@
         }
       });
     </script>
+    </div>
 </body>
 </html>

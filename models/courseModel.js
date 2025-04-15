@@ -83,7 +83,7 @@ class CourseModel {
         { 
             name: 'Beginner Dance Class', 
             description: 'Learn the basics of dance.', 
-            duration: '12 weeks', 
+            duration: '1 day',
             price: 100,
             date: '2023-06-15',
             time: '18:00',
@@ -91,7 +91,7 @@ class CourseModel {
             capacity: 1
           },
           { 
-            name: 'Advanced Dance Techniques', 
+            name: 'Advanced Dance Techniques Course',
             description: 'Learn the basics of dance.', 
             duration: '14 weeks', 
             price: 150,
@@ -101,7 +101,7 @@ class CourseModel {
             capacity: 20
           },
           { 
-            name: 'Weekend Dance Workshop', 
+            name: 'Weekend Dance Workshop Course',
             description: 'Intensive dance workshop over a weekend.', 
             duration: '1 week', 
             price: 40,

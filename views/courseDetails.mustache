@@ -29,13 +29,13 @@
     <p><strong>Capacity:</strong> {{capacity}}</p>
     
     {{#isAvailable}}
-      <a href="/book/{{_id}}/options" class="btn btn-primary">Book this Course</a>
+      <a href="/book/{{_id}}/options" class="btn btn-primary">Book</a>
     {{/isAvailable}}
     {{^isAvailable}}
       <button class="btn btn-secondary" disabled>Course Fully Booked</button>
     {{/isAvailable}}
     
-    <a href="/courses" class="btn btn-secondary">Back to Courses</a>
+    <a href="/courses" class="btn btn-secondary">Back</a>
   </div>
   {{> footer}}
 </body>
